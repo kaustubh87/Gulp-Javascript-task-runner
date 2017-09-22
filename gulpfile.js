@@ -4,9 +4,10 @@ var jscs = require('gulp-jscs');
 var util = require('gulp-util');
 var gulpprint = require('gulp-print');
 var gulpif = require('gulp-if');
-var args = require('yargs');
+var args = require('yargs').argv;
+
 gulp.task('hello-world', function() {
-    console.log('Our first Hello World Task');
+    log('Our first Hello World Task');
 });
 
 gulp.task('vet', function() {
@@ -15,14 +16,23 @@ gulp.task('vet', function() {
             './src/**/*.js',
             './*.js'
         ])
-        .pipe(gulpprint())
+        .pipe(gulpif(args.verbose, gulpprint()))
         .pipe(jscs())
         .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish', { verbose: true }));
+        .pipe(jshint.reporter('jshint-stylish', { verbose: true }))
+        .pipe(jshint.reporter('fail'));
 });
 
 ///////////
 
 function log(msg) {
-
-};
+    if (typeof(msg) === 'object') {
+        for (var item in msg) {
+            if (msg.hasOwnProperty(item)) {
+                util.log(util.colors.blue(msg[item]));
+            }
+        }
+    } else {
+        util.log(util.colors.blue(msg));
+    }
+}
