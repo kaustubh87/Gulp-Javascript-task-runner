@@ -18,6 +18,10 @@ gulp.task('vet', function() {
         .pipe($.jshint.reporter('fail'));
 });
 
+gulp.task('control', function() {
+    console.log('New Sample task');
+});
+
 ///////////
 
 function log(msg) {
