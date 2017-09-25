@@ -23,6 +23,8 @@ gulp.task('styles', function() {
 
     return gulp
         .src(config.less)
+        .pipe($.less())
+        .pipe($.autoprefixer({ browsers: ['last 2 versions', '> 5%'] }))
         .pipe(gulp.dest(config.temp));
 });
 
