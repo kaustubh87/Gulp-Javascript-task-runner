@@ -18,8 +18,12 @@ gulp.task('vet', function() {
         .pipe($.jshint.reporter('fail'));
 });
 
-gulp.task('control', function() {
-    console.log('New Sample task');
+gulp.task('styles', function() {
+    log('Compiling Less ---> Css');
+
+    return gulp
+        .src(config.less)
+        .pipe(gulp.dest(config.temp));
 });
 
 ///////////
