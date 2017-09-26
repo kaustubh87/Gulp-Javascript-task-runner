@@ -29,6 +29,10 @@ gulp.task('styles', ['clean-styles'], function() {
         .pipe(gulp.dest(config.temp));
 });
 
+gulp.task('less-watcher', function() {
+    gulp.watch([config.less], ['styles']);
+});
+
 
 gulp.task('clean-styles', function(done) {
     var files = config.temp + '**/*.css';
